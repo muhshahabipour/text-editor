@@ -1,0 +1,46 @@
+import AppKit
+
+final class LineNumberRulerView: NSRulerView {
+    private var textView: NSTextView { clientView as! NSTextView }
+
+    init(textView: NSTextView) {
+        super.init(scrollView: textView.enclosingScrollView!, orientation: .verticalRuler)
+        clientView = textView
+        ruleThickness = 40
+        NotificationCenter.default.addObserver(self, selector: #selector(setNeedsRedraw),
+            name: NSText.didChangeNotification, object: textView)
+        NotificationCenter.default.addObserver(self, selector: #selector(setNeedsRedraw),
+            name: NSView.boundsDidChangeNotification, object: textView.enclosingScrollView!.contentView)
+        textView.enclosingScrollView!.contentView.postsBoundsChangedNotifications = true
+    }
+    required init(coder: NSCoder) { fatalError() }
+
+    deinit { NotificationCenter.default.removeObserver(self) }
+
+    @objc private func setNeedsRedraw() { needsDisplay = true }
+
+    override func drawHashMarksAndLabels(in rect: NSRect) {
+        NSColor.windowBackgroundColor.setFill(); bounds.fill()
+        guard let tlm = textView.textLayoutManager,
+              let tcm = tlm.textContentManager else { return }
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .regular),
+            .foregroundColor: NSColor.secondaryLabelColor,
+        ]
+        let visible = textView.visibleRect
+        let inset = textView.textContainerOrigin
+        var line = 1
+        tlm.enumerateTextLayoutFragments(from: tcm.documentRange.location,
+                                         options: [.ensuresLayout]) { fragment in
+            let frame = fragment.layoutFragmentFrame
+            if frame.maxY >= visible.minY - 1, frame.minY <= visible.maxY {
+                let y = frame.minY + inset.y - visible.minY
+                let s = NSAttributedString(string: "\(line)", attributes: attrs)
+                let size = s.size()
+                s.draw(at: NSPoint(x: self.ruleThickness - size.width - 6, y: y))
+            }
+            line += 1
+            return frame.minY <= visible.maxY
+        }
+    }
+}

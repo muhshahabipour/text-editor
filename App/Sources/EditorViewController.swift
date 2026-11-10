@@ -35,7 +35,23 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
         scrollView.documentView = textView
         statusBar.onDigitsToggled = { [weak self] in self?.refreshStatus() }
         view = root
+        applyLineNumbers()
         refreshStatus()
+    }
+
+    func applyLineNumbers() {
+        if Preferences.showLineNumbers {
+            scrollView.verticalRulerView = LineNumberRulerView(textView: textView)
+            scrollView.hasVerticalRuler = true
+            scrollView.rulersVisible = true
+        } else {
+            scrollView.rulersVisible = false
+        }
+    }
+
+    @objc func toggleLineNumbers(_ sender: Any?) {
+        Preferences.showLineNumbers.toggle()
+        applyLineNumbers()
     }
 
     func refreshStatus() {

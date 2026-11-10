@@ -46,6 +46,7 @@ enum MenuBuilder {
             mi("Paragraph Left to Right", #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)), String(UnicodeScalar(NSRightArrowFunctionKey)!), [.command, .shift]),
             mi("Paragraph Right to Left", #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)), String(UnicodeScalar(NSLeftArrowFunctionKey)!), [.command, .shift]),
         ])
+        add("View", [mi("Toggle Line Numbers", Selector(("toggleLineNumbers:")), "l", [.command, .option])])
         add("Window", [
             mi("Minimize", #selector(NSWindow.performMiniaturize(_:)), "m"),
             mi("Show Next Tab", #selector(NSWindow.selectNextTab(_:)), "}", [.command]),
