@@ -30,17 +30,22 @@ final class LineNumberRulerView: NSRulerView {
         let visible = textView.visibleRect
         let inset = textView.textContainerOrigin
         var line = 1
+        var lastMaxY: CGFloat = 0
+        func draw(_ n: Int, at top: CGFloat) {
+            let label = NSAttributedString(string: "\(n)", attributes: attrs)
+            let size = label.size()
+            label.draw(at: NSPoint(x: ruleThickness - size.width - 6, y: top + inset.y - visible.minY))
+        }
         tlm.enumerateTextLayoutFragments(from: tcm.documentRange.location,
                                          options: [.ensuresLayout]) { fragment in
             let frame = fragment.layoutFragmentFrame
-            if frame.maxY >= visible.minY - 1, frame.minY <= visible.maxY {
-                let y = frame.minY + inset.y - visible.minY
-                let s = NSAttributedString(string: "\(line)", attributes: attrs)
-                let size = s.size()
-                s.draw(at: NSPoint(x: self.ruleThickness - size.width - 6, y: y))
-            }
+            if frame.maxY >= visible.minY - 1, frame.minY <= visible.maxY { draw(line, at: frame.minY) }
+            lastMaxY = frame.maxY
             line += 1
             return frame.minY <= visible.maxY
         }
+        // Layout fragments don't include the empty last line (empty document, or text ending in "\n").
+        let text = textView.string
+        if text.isEmpty || text.hasSuffix("\n") { draw(line, at: lastMaxY) }
     }
 }
