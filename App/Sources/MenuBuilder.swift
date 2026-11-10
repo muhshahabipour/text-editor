@@ -41,6 +41,7 @@ enum MenuBuilder {
             mi("Select All", #selector(NSText.selectAll(_:)), "a"),
             .separator(),
             find,
+            mi("Find (Persian-aware)…", Selector(("showPersianFind:")), "f", [.command, .option]),
         ])
         add("Format", [
             mi("Paragraph Left to Right", #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)), String(UnicodeScalar(NSRightArrowFunctionKey)!), [.command, .shift]),

@@ -49,6 +49,9 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
         }
     }
 
+    static let findController = PersianFindController()
+    @objc func showPersianFind(_ sender: Any?) { Self.findController.show(for: textView) }
+
     @objc func toggleLineNumbers(_ sender: Any?) {
         Preferences.showLineNumbers.toggle()
         applyLineNumbers()
