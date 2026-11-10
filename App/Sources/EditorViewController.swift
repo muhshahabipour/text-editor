@@ -89,8 +89,15 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
             p.alignment = .natural
             return p
         }()
+        textView.drawsBackground = true
+        textView.backgroundColor = .textBackgroundColor
+        textView.textColor = .textColor
+        textView.insertionPointColor = .textColor
+        scrollView.drawsBackground = true
+        scrollView.backgroundColor = .textBackgroundColor
         textView.typingAttributes = [
             .font: textView.font!,
+            .foregroundColor: NSColor.textColor,
             .paragraphStyle: textView.defaultParagraphStyle!,
         ]
         textView.string = document.text

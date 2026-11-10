@@ -10,6 +10,11 @@ enum Preferences {
         get { d.object(forKey: "showLineNumbers") as? Bool ?? true }
         set { d.set(newValue, forKey: "showLineNumbers") }
     }
+    /// "system" | "light" | "dark"
+    static var theme: String {
+        get { d.string(forKey: "theme") ?? "system" }
+        set { d.set(newValue, forKey: "theme") }
+    }
     static var ignoreVariants: Bool {
         get { d.object(forKey: "ignoreVariants") as? Bool ?? true }
         set { d.set(newValue, forKey: "ignoreVariants") }

@@ -17,10 +17,18 @@ final class LineNumberRulerView: NSRulerView {
 
     deinit { NotificationCenter.default.removeObserver(self) }
 
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        needsDisplay = true
+    }
+
     @objc private func setNeedsRedraw() { needsDisplay = true }
 
     override func drawHashMarksAndLabels(in rect: NSRect) {
-        NSColor.windowBackgroundColor.setFill(); bounds.fill()
+        NSColor.textBackgroundColor.blended(withFraction: 0.06, of: .labelColor)?.setFill()
+        bounds.fill()
+        NSColor.separatorColor.setFill()
+        NSRect(x: bounds.maxX - 1, y: bounds.minY, width: 1, height: bounds.height).fill()
         guard let tlm = textView.textLayoutManager,
               let tcm = tlm.textContentManager else { return }
         let attrs: [NSAttributedString.Key: Any] = [

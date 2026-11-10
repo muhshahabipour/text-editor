@@ -1,7 +1,7 @@
 import AppKit
 
 enum MenuBuilder {
-    static func build() -> NSMenu {
+    static func build(target: AppDelegate) -> NSMenu {
         let main = NSMenu()
         func add(_ title: String, _ items: [NSMenuItem]) {
             let item = NSMenuItem(); main.addItem(item)
@@ -50,7 +50,18 @@ enum MenuBuilder {
             mi("Paragraph Left to Right", #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)), String(UnicodeScalar(NSRightArrowFunctionKey)!), [.command, .shift]),
             mi("Paragraph Right to Left", #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)), String(UnicodeScalar(NSLeftArrowFunctionKey)!), [.command, .shift]),
         ])
-        add("View", [mi("Toggle Line Numbers", Selector(("toggleLineNumbers:")), "l", [.command, .option])])
+        func themeItem(_ title: String, _ key: String) -> NSMenuItem {
+            let i = mi(title, #selector(AppDelegate.setTheme(_:)))
+            i.target = target; i.representedObject = key
+            return i
+        }
+        add("View", [
+            mi("Toggle Line Numbers", Selector(("toggleLineNumbers:")), "l", [.command, .option]),
+            .separator(),
+            themeItem("Theme: System", "system"),
+            themeItem("Theme: Light", "light"),
+            themeItem("Theme: Dark", "dark"),
+        ])
         add("Window", [
             mi("Minimize", #selector(NSWindow.performMiniaturize(_:)), "m"),
             mi("Show Next Tab", #selector(NSWindow.selectNextTab(_:)), "}", [.command]),
