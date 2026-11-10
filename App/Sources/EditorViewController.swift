@@ -14,21 +14,37 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
     }
     required init?(coder: NSCoder) { fatalError() }
 
+    let statusBar = StatusBarView()
+
     override func loadView() {
         let root = NSView()
         scrollView.hasVerticalScroller = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        root.addSubview(scrollView)
+        statusBar.translatesAutoresizingMaskIntoConstraints = false
+        root.addSubview(scrollView); root.addSubview(statusBar)
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: root.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: root.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: root.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: root.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: statusBar.topAnchor),
+            statusBar.leadingAnchor.constraint(equalTo: root.leadingAnchor),
+            statusBar.trailingAnchor.constraint(equalTo: root.trailingAnchor),
+            statusBar.bottomAnchor.constraint(equalTo: root.bottomAnchor),
         ])
         configureTextView()
         scrollView.documentView = textView
+        statusBar.onDigitsToggled = { [weak self] in self?.refreshStatus() }
         view = root
+        refreshStatus()
     }
+
+    func refreshStatus() {
+        let text = textView.string
+        let pos = StatsCalculator.position(in: text, utf16Offset: textView.selectedRange().location)
+        statusBar.update(stats: StatsCalculator.stats(for: text), line: pos.line, column: pos.column)
+    }
+
+    func textViewDidChangeSelection(_ notification: Notification) { refreshStatus() }
 
     private func configureTextView() {
         textView.isRichText = false
@@ -66,5 +82,6 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
 
     func textDidChange(_ notification: Notification) {
         document.updateChangeCount(.changeDone)
+        refreshStatus()
     }
 }
