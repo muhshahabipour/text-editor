@@ -1,4 +1,4 @@
-name: PersianEditor
+name: TextEditor
 options:
   bundleIdPrefix: com.example
   deploymentTarget:
@@ -7,17 +7,22 @@ packages:
   EditorCore:
     path: EditorCore
 targets:
-  PersianEditor:
+  TextEditor:
     type: application
     platform: macOS
-    sources: [App/Sources]
+    sources:
+      - App/Sources
+      - path: App/Resources/AppIcon.icns
+        buildPhase: resources
     dependencies:
       - package: EditorCore
     info:
       path: App/Resources/Info.plist
       properties:
-        CFBundleName: Persian Editor
+        CFBundleName: Text Editor
         NSPrincipalClass: NSApplication
+        CFBundleIconFile: AppIcon
+        CFBundleDisplayName: Text Editor
         CFBundleDocumentTypes:
           - CFBundleTypeName: Plain Text
             CFBundleTypeRole: Editor
@@ -25,5 +30,5 @@ targets:
             NSDocumentClass: $(PRODUCT_MODULE_NAME).TextDocument
         NSSupportsAutomaticTermination: false
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: com.example.PersianEditor
+      PRODUCT_BUNDLE_IDENTIFIER: com.example.TextEditor
       ENABLE_HARDENED_RUNTIME: NO

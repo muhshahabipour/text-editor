@@ -1,14 +1,14 @@
-# Persian Editor
+# Text Editor
 
-A native macOS plain-text editor (Swift + AppKit) with Persian (RTL) and English (LTR) support.
+A native macOS plain-text editor (Swift + AppKit) with first-class Persian (RTL) and English (LTR) support, including mixed bidirectional text.
 
 ## Build
 
 ```bash
 brew install xcodegen
 xcodegen generate
-xcodebuild -project PersianEditor.xcodeproj -scheme PersianEditor -configuration Debug -derivedDataPath build build
-open build/Build/Products/Debug/PersianEditor.app
+xcodebuild -project TextEditor.xcodeproj -scheme TextEditor -configuration Debug -derivedDataPath build build
+open build/Build/Products/Debug/TextEditor.app
 ```
 
 Core logic tests: `cd EditorCore && swift test`

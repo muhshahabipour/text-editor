@@ -17,7 +17,7 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
     let statusBar = StatusBarView()
 
     override func loadView() {
-        let root = NSView()
+        let root = NSView(frame: NSRect(x: 0, y: 0, width: 760, height: 560))
         scrollView.hasVerticalScroller = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         statusBar.translatesAutoresizingMaskIntoConstraints = false

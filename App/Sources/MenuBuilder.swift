@@ -16,10 +16,10 @@ enum MenuBuilder {
         let find = mi("Find…", #selector(NSResponder.performTextFinderAction(_:)), "f")
         find.tag = NSTextFinder.Action.showFindInterface.rawValue
         add("App", [
-            mi("About Persian Editor", #selector(NSApplication.orderFrontStandardAboutPanel(_:))),
+            mi("About Text Editor", #selector(NSApplication.orderFrontStandardAboutPanel(_:))),
             .separator(),
-            mi("Hide Persian Editor", #selector(NSApplication.hide(_:)), "h"),
-            mi("Quit Persian Editor", #selector(NSApplication.terminate(_:)), "q"),
+            mi("Hide Text Editor", #selector(NSApplication.hide(_:)), "h"),
+            mi("Quit Text Editor", #selector(NSApplication.terminate(_:)), "q"),
         ])
         add("File", [
             mi("New", #selector(NSDocumentController.newDocument(_:)), "n"),
