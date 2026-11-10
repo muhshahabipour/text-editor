@@ -1,0 +1,29 @@
+name: PersianEditor
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    macOS: "13.0"
+packages:
+  EditorCore:
+    path: EditorCore
+targets:
+  PersianEditor:
+    type: application
+    platform: macOS
+    sources: [App/Sources]
+    dependencies:
+      - package: EditorCore
+    info:
+      path: App/Resources/Info.plist
+      properties:
+        CFBundleName: Persian Editor
+        NSPrincipalClass: NSApplication
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Plain Text
+            CFBundleTypeRole: Editor
+            LSItemContentTypes: [public.plain-text]
+            NSDocumentClass: $(PRODUCT_MODULE_NAME).TextDocument
+        NSSupportsAutomaticTermination: false
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.example.PersianEditor
+      ENABLE_HARDENED_RUNTIME: NO
