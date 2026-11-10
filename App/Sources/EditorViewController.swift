@@ -74,6 +74,8 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
         textView.usesFindBar = true
         textView.isIncrementalSearchingEnabled = true
         textView.isContinuousSpellCheckingEnabled = true
+        NSSpellChecker.shared.automaticallyIdentifiesLanguages = true
+        textView.isGrammarCheckingEnabled = false
         textView.textContainerInset = NSSize(width: 12, height: 10)
         textView.isVerticallyResizable = true
         textView.isHorizontallyResizable = false

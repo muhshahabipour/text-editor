@@ -42,6 +42,9 @@ enum MenuBuilder {
             .separator(),
             find,
             mi("Find (Persian-aware)…", Selector(("showPersianFind:")), "f", [.command, .option]),
+            .separator(),
+            mi("Show Spelling and Grammar", #selector(NSText.showGuessPanel(_:)), ":"),
+            mi("Check Spelling While Typing", #selector(NSTextView.toggleContinuousSpellChecking(_:))),
         ])
         add("Format", [
             mi("Paragraph Left to Right", #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)), String(UnicodeScalar(NSRightArrowFunctionKey)!), [.command, .shift]),
