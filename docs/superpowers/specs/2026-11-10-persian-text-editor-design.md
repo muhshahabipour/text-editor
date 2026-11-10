@@ -18,7 +18,7 @@ A native macOS plain-text editor with first-class Persian (RTL) and English (LTR
 | `TextDocument` (`NSDocument`) | Read/write files; encoding detection | `TextEncodingDetector` |
 | `TextEncodingDetector` | Try UTF-8, then UTF-16 (BOM), then Windows-1256; report failure | Foundation |
 | `EditorViewController` | `NSScrollView` + `NSTextView` + ruler + status bar wiring | AppKit, below units |
-| `LineNumberRulerView` | Line numbers; placed on the leading side for RTL paragraphs | AppKit |
+| `LineNumberRulerView` | Line numbers; always on the left edge (macOS ruler convention) | AppKit |
 | `StatsCalculator` | Pure functions: word, character, line counts; cursor line/column | Foundation |
 | `PersianText` | Normalize ي/ی and ك/ک; Latin → Persian digit conversion | Foundation |
 | `PersianFindPanel` | Optional "ignore Arabic/Persian letter variants" search on top of the native find bar | `PersianText` |
@@ -31,7 +31,7 @@ Each unit is testable without UI except the view controller, ruler and find pane
 - **Spell check:** `NSSpellChecker` with automatic language identification. Persian must be enabled in macOS language settings (system-level, not app-level).
 - **Find:** native find bar (`usesFindBar = true`) plus a toggle for variant-insensitive matching via `PersianText` normalization.
 - **Status bar:** `Line 12, Col 4 · 340 words · 2,100 chars`; digits Latin by default, switchable to Persian.
-- **Line numbers:** `NSRulerView`; hidden/shown via View menu.
+- **Line numbers:** `NSRulerView` on the left edge, one number per paragraph; hidden/shown via View menu (Cmd+Opt+L).
 
 ## Errors
 - Undecodable file: alert explaining the problem with a choice of encoding to retry.
