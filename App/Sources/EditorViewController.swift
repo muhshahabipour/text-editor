@@ -57,6 +57,45 @@ final class EditorViewController: NSViewController, NSTextViewDelegate {
         applyLineNumbers()
     }
 
+    private var exportFormats: [ExportFormat] { ExportFormat.allCases }
+    private weak var exportPanel: NSSavePanel?
+    private weak var exportPopup: NSPopUpButton?
+
+    @objc func exportDocument(_ sender: Any?) {
+        guard let window = view.window else { return }
+        let panel = NSSavePanel()
+        panel.title = "Export As"
+        panel.canCreateDirectories = true
+        panel.nameFieldStringValue = document.displayName
+        let popup = NSPopUpButton(frame: .zero, pullsDown: false)
+        popup.addItems(withTitles: exportFormats.map(\.title))
+        popup.target = self
+        popup.action = #selector(exportFormatChanged(_:))
+        let label = NSTextField(labelWithString: "Format:")
+        let stack = NSStackView(views: [label, popup])
+        stack.spacing = 8
+        stack.edgeInsets = NSEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        panel.accessoryView = stack
+        exportPanel = panel; exportPopup = popup
+        exportFormatChanged(popup)
+        let text = textView.string
+        panel.beginSheetModal(for: window) { [weak self] response in
+            guard response == .OK, let url = panel.url, let self,
+                  let idx = self.exportPopup?.indexOfSelectedItem else { return }
+            do { try Exporter.write(text: text, format: self.exportFormats[idx], to: url) }
+            catch { NSAlert(error: error).beginSheetModal(for: window) }
+        }
+    }
+
+    @objc private func exportFormatChanged(_ sender: NSPopUpButton) {
+        guard let panel = exportPanel else { return }
+        let f = exportFormats[sender.indexOfSelectedItem]
+        panel.allowedContentTypes = [f.contentType]
+        var name = panel.nameFieldStringValue
+        if let dot = name.lastIndex(of: "."), name[name.index(after: dot)...].count <= 4 { name = String(name[..<dot]) }
+        panel.nameFieldStringValue = name
+    }
+
     func refreshStatus() {
         let text = textView.string
         let pos = StatsCalculator.position(in: text, utf16Offset: textView.selectedRange().location)

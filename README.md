@@ -18,6 +18,8 @@ Core logic tests: `cd EditorCore && swift test`
 - Native tabs (Cmd+T), automatic direction per paragraph, manual direction: Cmd+Shift+→ (LTR) / Cmd+Shift+← (RTL)
 - Find bar (Cmd+F) and Persian-aware find/replace (Cmd+Opt+F) that can ignore ي/ی and ك/ک differences
 - Line numbers (Cmd+Opt+L), status bar with line/column, words, characters; Latin digits by default, Persian digits optional
+- Theme: View → Theme (System / Light / Dark)
+- Export As… (Cmd+Shift+E): .txt, .md, .html, .rtf, .pdf (HTML/RTF/PDF keep per-paragraph RTL/LTR direction)
 - Spell check in English and Persian
 
 ## Notes

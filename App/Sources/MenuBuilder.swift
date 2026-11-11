@@ -30,6 +30,8 @@ enum MenuBuilder {
             mi("Save…", #selector(NSDocument.save(_:)), "s"),
             mi("Save As…", #selector(NSDocument.saveAs(_:)), "S", [.command, .shift]),
             mi("Revert to Saved", #selector(NSDocument.revertToSaved(_:))),
+            .separator(),
+            mi("Export As…", Selector(("exportDocument:")), "e", [.command, .shift]),
         ])
         add("Edit", [
             mi("Undo", Selector(("undo:")), "z"),
