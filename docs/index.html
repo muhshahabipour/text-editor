@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Editor for Mac</title>
+<meta name="description" content="A native macOS plain-text editor with first-class Persian (RTL) and English (LTR) support.">
+<link rel="icon" href="icon.png">
+<style>
+:root{--bg:#fafafa;--fg:#16181d;--muted:#5c6370;--card:#fff;--line:#e4e6eb;--accent:#1f9d55;--accent-fg:#fff;--code:#f0f1f4}
+@media (prefers-color-scheme:dark){:root{--bg:#121418;--fg:#e8eaee;--muted:#9aa1ad;--card:#1a1d23;--line:#2a2e36;--accent:#5fe08f;--accent-fg:#0b1f12;--code:#20242b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,"Helvetica Neue",Vazirmatn,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{padding:64px 0 40px;text-align:center}
+header img{width:120px;height:120px;border-radius:26px;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+h1{font-size:2.4rem;margin:20px 0 8px;letter-spacing:-.02em}
+.lead{color:var(--muted);font-size:1.15rem;max-width:34em;margin:0 auto 28px}
+.fa{direction:rtl;color:var(--muted);margin:-14px 0 28px}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-fg);font-weight:600;padding:12px 24px;border-radius:10px;text-decoration:none;margin:4px}
+.btn.alt{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.small{color:var(--muted);font-size:.88rem;margin-top:10px}
+h2{font-size:1.5rem;margin:48px 0 16px;letter-spacing:-.01em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h3{margin:0 0 6px;font-size:1.05rem}.card p{margin:0;color:var(--muted);font-size:.95rem}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+td,th{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.95rem}
+tr:last-child td{border-bottom:0}th{color:var(--muted);font-weight:600}
+kbd{background:var(--code);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font:.85em ui-monospace,Menlo,monospace;white-space:nowrap}
+pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font:.88rem/1.5 ui-monospace,Menlo,monospace}
+ul{padding-left:1.2em}li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <img src="icon.png" alt="Text Editor app icon">
+  <h1>Text Editor</h1>
+  <p class="lead">A native macOS plain-text editor with first-class Persian (RTL) and English (LTR) support, including mixed bidirectional text.</p>
+  <p class="fa" lang="fa">ویرایشگر متن بومی مک، با پشتیبانی کامل از فارسی و انگلیسی</p>
+  <a class="btn" href="https://github.com/muhshahabipour/text-editor/releases/latest">Download for macOS</a>
+  <a class="btn alt" href="https://github.com/muhshahabipour/text-editor">View on GitHub</a>
+  <p class="small">v1.0.0 · Apple Silicon · macOS 13+ · not notarized: right-click the app and choose Open the first time</p>
+</header>
+
+<h2>Features</h2>
+<div class="grid">
+  <div class="card"><h3>Mixed-direction text</h3><p>Each paragraph picks its own direction automatically. Force it with <kbd>⌘⇧→</kbd> or <kbd>⌘⇧←</kbd>.</p></div>
+  <div class="card"><h3>Native tabs</h3><p>Standard macOS tabs and windows. <kbd>⌘T</kbd> opens a new tab.</p></div>
+  <div class="card"><h3>Persian-aware find</h3><p>Optionally ignores ي/ی and ك/ک differences. <kbd>⌘⌥F</kbd>, alongside the regular find bar <kbd>⌘F</kbd>.</p></div>
+  <div class="card"><h3>Spell check</h3><p>English and Persian, with automatic language detection.</p></div>
+  <div class="card"><h3>Line numbers & stats</h3><p>Line numbers on by default (<kbd>⌘⌥L</kbd>). Status bar shows line, column, words and characters, with Latin or Persian digits.</p></div>
+  <div class="card"><h3>Light, Dark, System</h3><p>Switch from View → Theme.</p></div>
+</div>
+
+<h2>Export As…</h2>
+<p><kbd>⌘⇧E</kbd> exports the current text. Your document stays a plain .txt file.</p>
+<table>
+  <tr><th>Format</th><th>What you get</th></tr>
+  <tr><td>.txt</td><td>The text as-is, UTF-8</td></tr>
+  <tr><td>.md</td><td>The text as-is with a Markdown extension</td></tr>
+  <tr><td>.html</td><td>One paragraph per line, <code>dir="auto"</code> so Persian and English each read correctly</td></tr>
+  <tr><td>.rtf</td><td>Rich text with font and per-paragraph direction</td></tr>
+  <tr><td>.pdf</td><td>A4 pages, light theme, Persian right-aligned and English left-aligned</td></tr>
+</table>
+
+<h2>Files and encodings</h2>
+<ul>
+  <li>Opens UTF-8, then UTF-16 (with BOM), then Windows-1256. A Windows-1256 file is saved back in Windows-1256.</li>
+  <li>Uses Vazirmatn if it is installed, otherwise the system font.</li>
+  <li>Persian spell check needs Persian enabled in System Settings → Keyboard → Text Input → Spelling.</li>
+</ul>
+
+<h2>Build from source</h2>
+<pre>brew install xcodegen
+xcodegen generate
+xcodebuild -project TextEditor.xcodeproj -scheme TextEditor \
+  -configuration Debug -derivedDataPath build build
+open build/Build/Products/Debug/TextEditor.app
+
+# core logic tests
+cd EditorCore &amp;&amp; swift test</pre>
+<p>Swift 5.9, AppKit, TextKit 2. The text logic (stats, Persian normalisation, encoding detection) lives in a separate Swift package, <code>EditorCore</code>.</p>
+</div>
+<footer>
+  <a href="https://github.com/muhshahabipour/text-editor">Source</a> ·
+  <a href="https://github.com/muhshahabipour/text-editor/releases">Releases</a> ·
+  <a href="https://github.com/muhshahabipour/text-editor/blob/main/LICENSE">License</a>
+</footer>
+</body>
+</html>
