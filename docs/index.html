@@ -29,6 +29,7 @@ td,th{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font
 tr:last-child td{border-bottom:0}th{color:var(--muted);font-weight:600}
 kbd{background:var(--code);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font:.85em ui-monospace,Menlo,monospace;white-space:nowrap}
 pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font:.88rem/1.5 ui-monospace,Menlo,monospace}
+.shot{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:0 8px 30px rgba(0,0,0,.18);margin-top:8px}
 ul{padding-left:1.2em}li{margin:6px 0}
 footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
 a{color:var(--accent)}
@@ -45,6 +46,18 @@ a{color:var(--accent)}
   <a class="btn alt" href="https://github.com/muhshahabipour/text-editor">View on GitHub</a>
   <p class="small">v1.0.0 · Apple Silicon · macOS 13+ · not notarized: right-click the app and choose Open the first time</p>
 </header>
+
+<img class="shot" src="screenshot.jpg" alt="Text Editor in dark mode with English and Persian text">
+
+<h2>What makes it different</h2>
+<div class="grid">
+  <div class="card"><h3>Built for mixed text</h3><p>Every paragraph finds its own direction, so RTL and LTR lines sit correctly in one file with no mode switching.</p></div>
+  <div class="card"><h3>Persian-aware search</h3><p>Treats ي/ی and ك/ک as the same letter, so text typed on Arabic keyboards is still found.</p></div>
+  <div class="card"><h3>Old files just work</h3><p>Windows-1256 files open correctly and are saved back in the same encoding.</p></div>
+  <div class="card"><h3>Exports keep direction</h3><p>HTML, RTF and PDF keep Persian right-aligned and English left-aligned.</p></div>
+  <div class="card"><h3>Persian digits</h3><p>Show ۱۲۳ instead of 123 in the status bar.</p></div>
+  <div class="card"><h3>Small and native</h3><p>About 400 KB, AppKit, native tabs and system spell check. No Electron, account or cloud. Your files stay plain .txt.</p></div>
+</div>
 
 <h2>Features</h2>
 <div class="grid">
