@@ -63,6 +63,14 @@ Core logic tests: `cd EditorCore && swift test`
 
 The text logic (statistics, Persian normalisation, encoding detection) lives in the `EditorCore` Swift package; the app is in `App/`. Design notes are in `docs/superpowers/`.
 
+## Contributing
+
+Contributions are welcome, especially Persian/RTL fixes. Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup and guidelines, or open an [issue](https://github.com/muhshahabipour/text-editor/issues).
+
+### Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=muhshahabipour/text-editor)](https://github.com/muhshahabipour/text-editor/graphs/contributors)
+
 ## License
 
 See [LICENSE](LICENSE).
