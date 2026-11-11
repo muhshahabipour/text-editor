@@ -1,0 +1,34 @@
+name: TextEditor
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    macOS: "13.0"
+packages:
+  EditorCore:
+    path: EditorCore
+targets:
+  TextEditor:
+    type: application
+    platform: macOS
+    sources:
+      - App/Sources
+      - path: App/Resources/AppIcon.icns
+        buildPhase: resources
+    dependencies:
+      - package: EditorCore
+    info:
+      path: App/Resources/Info.plist
+      properties:
+        CFBundleName: Text Editor
+        NSPrincipalClass: NSApplication
+        CFBundleIconFile: AppIcon
+        CFBundleDisplayName: Text Editor
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Plain Text
+            CFBundleTypeRole: Editor
+            LSItemContentTypes: [public.plain-text]
+            NSDocumentClass: $(PRODUCT_MODULE_NAME).TextDocument
+        NSSupportsAutomaticTermination: false
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.example.TextEditor
+      ENABLE_HARDENED_RUNTIME: NO
